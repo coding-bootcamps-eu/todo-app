@@ -23,6 +23,10 @@ function addNewTodo() {
   const todoListEl = document.querySelector("#todo-list");
   todoListEl.appendChild(newTodoLiEl);
 
+  const todoCheckboxEl = document.createElement("input");
+  todoCheckboxEl.setAttribute("type", "checkbox");
+  newTodoLiEl.appendChild(todoCheckboxEl);
+
   newTodoEl.value = "";
 }
 
@@ -42,4 +46,16 @@ function isDuplicate(todo) {
   }
 
   return false;
+}
+
+const todoListEl = document.querySelector("#todo-list");
+todoListEl.addEventListener("change", toggleTodoState);
+
+function toggleTodoState(event) {
+  const checkbox = event.target;
+  if (checkbox.checked === true) {
+    checkbox.parentElement.classList.add("done");
+  } else {
+    checkbox.parentElement.classList.remove("done");
+  }
 }
