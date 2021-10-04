@@ -10,6 +10,21 @@
   <body>
     <h1>Todo App</h1>
     <form onsubmit="return false">
+      <div class="todo-filter" id="todo-filter">
+        <label for="filter-all">Show all todos</label>
+        <input
+          type="radio"
+          name="todo-filter"
+          value="all"
+          id="filter-all"
+          checked
+        />
+        <label for="filter-done">Show done todos</label>
+        <input type="radio" name="todo-filter" value="done" id="filter-done" />
+        <label for="filter-open">Show open todos</label>
+        <input type="radio" name="todo-filter" value="open" id="filter-open" />
+      </div>
+
       <input type="text" id="new-todo" />
       <button id="add-todo">Add Todo</button>
     </form>

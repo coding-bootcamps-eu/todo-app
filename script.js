@@ -26,6 +26,12 @@ function addNewTodo() {
   const todoCheckboxEl = document.createElement("input");
   todoCheckboxEl.setAttribute("type", "checkbox");
   newTodoLiEl.appendChild(todoCheckboxEl);
+  newTodoLiEl.setAttribute("data-done", false);
+
+  const filterValue = getFilterValue();
+  if (filterValue === "done") {
+    newTodoLiEl.hidden = true;
+  }
 
   newTodoEl.value = "";
 }
@@ -55,7 +61,32 @@ function toggleTodoState(event) {
   const checkbox = event.target;
   if (checkbox.checked === true) {
     checkbox.parentElement.classList.add("done");
+    checkbox.parentElement.setAttribute("data-done", true);
   } else {
     checkbox.parentElement.classList.remove("done");
+    checkbox.parentElement.setAttribute("data-done", false);
   }
+}
+
+const todoFilterEl = document.querySelector("#todo-filter");
+todoFilterEl.addEventListener("change", filterTodos);
+function filterTodos() {
+  const filterValue = getFilterValue();
+
+  const todoListEl = document.querySelector("#todo-list");
+  for (let i = 0; i < todoListEl.children.length; i++) {
+    const currentTodo = todoListEl.children[i];
+    if (filterValue === "all") {
+      currentTodo.hidden = false;
+    } else if (filterValue === "open") {
+      currentTodo.hidden = currentTodo.getAttribute("data-done") === "true";
+    } else if (filterValue === "done") {
+      currentTodo.hidden = currentTodo.getAttribute("data-done") === "false";
+    }
+  }
+}
+
+function getFilterValue() {
+  return document.querySelector('#todo-filter input[type="radio"]:checked')
+    .value;
 }
