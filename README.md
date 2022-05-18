@@ -1,3 +1,5 @@
 # Todo App
 
-Lecture example of a minimal todo app.
+Minimal todo app example.
+
+PS: Keep the erros that you may find 😅
