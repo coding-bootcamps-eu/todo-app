@@ -1,6 +1,9 @@
 console.log("Hello Todo App!");
 
 let todos = [];
+const deleteTodosButton = document.querySelector("#delete-todos");
+const addTodoBtn = document.querySelector("#add-todo");
+const todoListEl = document.querySelector("#todo-list");
 
 function readTodosFromLocalStorage() {
   const todosFromStorage = localStorage.getItem("todos");
@@ -24,7 +27,6 @@ function addNewTodo() {
 
   // duplicate check
   if (isDuplicate(newTodoText)) {
-    alert("This todo is already in the list");
     return;
   }
 
@@ -39,7 +41,6 @@ function addNewTodo() {
 
   newTodoEl.value = "";
 }
-const addTodoBtn = document.querySelector("#add-todo");
 addTodoBtn.addEventListener("click", addNewTodo);
 
 function renderTodos() {
@@ -48,15 +49,14 @@ function renderTodos() {
 
   todos.forEach(function (currentTodo) {
     const newTodoLiEl = document.createElement("li");
-    newTodoLiEl.innerText = currentTodo.todo;
-
-    const todoListEl = document.querySelector("#todo-list");
-    todoListEl.appendChild(newTodoLiEl);
 
     const todoCheckboxEl = document.createElement("input");
     todoCheckboxEl.setAttribute("type", "checkbox");
     todoCheckboxEl.checked = currentTodo.done;
     newTodoLiEl.appendChild(todoCheckboxEl);
+
+    const textNode = document.createTextNode(currentTodo.todo);
+    newTodoLiEl.append(textNode);
 
     if (currentTodo.done === true) {
       newTodoLiEl.classList.add("done");
@@ -69,7 +69,7 @@ function renderTodos() {
       newTodoLiEl.hidden = true;
     }
 
-    todoListEl.append(newTodoLiEl);
+    todoListEl.appendChild(newTodoLiEl);
   });
 
   filterTodos();
@@ -80,14 +80,13 @@ function isDuplicate(todo) {
 
   for (let i = 0; i < todos.length; i++) {
     const currentTodo = todos[i];
-    if (currentTodo.todo === todo) {
+    if (currentTodo.todo.toLowerCase() === todo) {
       return true;
     }
   }
   return false;
 }
 
-const todoListEl = document.querySelector("#todo-list");
 todoListEl.addEventListener("change", toggleTodoState);
 function toggleTodoState(event) {
   const checkbox = event.target;
@@ -124,6 +123,13 @@ function getFilterValue() {
   return document.querySelector('#todo-filter input[type="radio"]:checked')
     .value;
 }
+
+function deleteDoneTodos() {
+  todos = todos.filter((todo) => todo.done === false);
+  saveTodosToLocalStorage();
+  renderTodos();
+}
+deleteTodosButton.addEventListener("click", deleteDoneTodos);
 
 function initTodoApp() {
   readTodosFromLocalStorage();

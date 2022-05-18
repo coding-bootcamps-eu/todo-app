@@ -7,28 +7,31 @@
     <title>Todo App</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="todo-app">
     <h1>Todo App</h1>
-    <form onsubmit="return false">
-      <div class="todo-filter" id="todo-filter">
-        <label for="filter-all">Show all todos</label>
-        <input
-          type="radio"
-          name="todo-filter"
-          value="all"
-          id="filter-all"
-          checked
-        />
-        <label for="filter-done">Show done todos</label>
-        <input type="radio" name="todo-filter" value="done" id="filter-done" />
-        <label for="filter-open">Show open todos</label>
-        <input type="radio" name="todo-filter" value="open" id="filter-open" />
-      </div>
 
-      <input type="text" id="new-todo" />
-      <button id="add-todo">Add Todo</button>
-    </form>
-    <ul id="todo-list"></ul>
+    <div class="todo-filter" id="todo-filter">
+      <input
+        type="radio"
+        name="todo-filter"
+        value="all"
+        id="filter-all"
+        checked
+      />
+      <label for="filter-all">Show all todos</label>
+      <input type="radio" name="todo-filter" value="done" id="filter-done" />
+      <label for="filter-done">Show done todos</label>
+      <input type="radio" name="todo-filter" value="open" id="filter-open" />
+      <label for="filter-open">Show open todos</label>
+    </div>
+    <div class="todo-actions">
+      <button id="delete-todos">Delete done Todos</button>
+    </div>
+    <div class="todo-input">
+      <input type="text" id="new-todo" placeholder="Enter your todo here" />
+      <button id="add-todo">Add new Todo</button>
+    </div>
+    <ul class="todo-list" id="todo-list"></ul>
     <script src="script.js"></script>
   </body>
 </html>
